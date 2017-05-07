@@ -1,64 +1,51 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
-enum{DDD,EEE,UUU,VVV,WWW};
+
+#define TRUE 1
+#define FALSE 0
+
+#define indx1 (i)
+#define indx2 (j + i*(params->nx))
+#define indx3 (k + (params->ny)*indx2)
+
+#define indxm1 (i)
+#define indxm2 (j + i*(params->nx+1))
+#define indxm3 (k + (params->ny+1)*indxm2)
+
+typedef struct Grid {
+    int nx,ny,nz,size;
+    double *xmin, *ymin, *zmin, *xmed, *ymed, *zmed;
+    double *dx, *dy, *dz;
+    double *Vol, *invVol, *Sxy, *Sxz, *Syz, *dSx, *dSy, *dSz;
+} Grid;
+
 
 typedef struct Field {
-
-    double *cons_cpu;
-    double *prim_cpu;
-    double *Ql_cpu;
-    double *Qr_cpu;
-    double *Fl_cpu;
-    double *Fr_cpu;
-    double *cons_gpu;
-    double *prim_gpu;
-    double *Ql_gpu;
-    double *Qr_gpu;
-    double *Fl_gpu;
-    double *Fr_gpu;
-    int size_x, size_y, size_z, size;
-    int nfields;
-    int nscalars;
+    int nx,ny,nz,size,nscalers;
+    double *Density, *Vx, *Vy, *Vz, *Pressure, *Energy, *Scalars;
+    double *Mx, *My, *Mz;
+    double *Fx, *Fy, *Fz;
 } Field;
 
 typedef struct Parameters {
     int nx,ny,nz;
-    double xmin,ymin,zmin;
-    double xmax,ymax,zmax;
+    double xmin,xmax,ymin,ymax,zmin,zmax;
+    double tend;
+    int noutputs;
+    int logx, logy, logz; 
+    int nscalars;
+    char outputdir[1024];
+
 } Parameters;
 
-typedef struct Grid {
-    double *xm_cpu;
-    double *ym_cpu;
-    double *zm_cpu;
-    double *xmed_cpu;
-    double *ymed_cpu;
-    double *zmed_cpu;
-    double *dx_cpu;
-    double *dy_cpu;
-    double *dz_cpu;
-    double *dAxy_cpu;
-    double *dAxz_cpu;
-    double *dAyz_cpu;
-    double *dV_cpu;
-    double *xm_gpu;
-    double *ym_gpu;
-    double *zm_gpu;
-    double *xmed_gpu;
-    double *ymed_gpu;
-    double *zmed_gpu;
-    double *dx_gpu;
-    double *dy_gpu;
-    double *dz_gpu;
-    double *dAxy_gpu;
-    double *dAxz_gpu;
-    double *dAyz_gpu;
-    double *dV_gpu;
-} Grid;
 
 
+Parameters *params;
+Field *fld;
+Grid *grid;
 
-Field *Domain;
+
 

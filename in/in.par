@@ -1,0 +1,28 @@
+#Input file
+
+#Grid parameters
+nx = 10
+ny = 10
+nz = 10
+
+xmin = 0
+xmax = 1
+logx = No
+
+ymin = 0
+ymax = 1
+logy = No
+
+zmin = 0
+zmax = 1
+logz = No
+
+#Time parameters
+tend = 1.0
+noutputs = 10
+
+#Number of scalars
+nscalars = 1
+
+#Output directory
+outputdir = outputs/
