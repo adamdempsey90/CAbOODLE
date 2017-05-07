@@ -9,6 +9,7 @@ int main(int argc , char *argv[]) {
     initialize();
     time = 0;
     for(n=0;n<DT;n++) {
+        printf("t = %.5f (%d DT)\n", time, n);
         algogas(time,dt);
         output(time);
     }
